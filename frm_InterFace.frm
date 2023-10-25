@@ -13,39 +13,28 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-' Toggle Selection for Levels List Box
+
+Private Sub ToggleSelection(listBox As Object, btnToggle As Object)
+    Static isSelected As Boolean
+    Dim i As Integer
+    isSelected = Not isSelected
+    For i = 0 To listBox.ListCount - 1
+        listBox.Selected(i) = isSelected
+    Next i
+    btnToggle.Caption = IIf(isSelected, "none", "all")
+End Sub
+
 Private Sub btnToggleSelectionLevels_Click()
-    Static isSelectedLevels As Boolean
-    Dim i As Integer
-    isSelectedLevels = Not isSelectedLevels
-    For i = 0 To lstBox_Levels.ListCount - 1
-        lstBox_Levels.Selected(i) = isSelectedLevels
-    Next i
-    btnToggleSelectionLevels.Caption = IIf(isSelectedLevels, "none", "all")
+    ToggleSelection lstBox_Levels, btnToggleSelectionLevels
 End Sub
 
-' Toggle Selection for Modules List Box
 Private Sub btnToggleSelectionModules_Click()
-    Static isSelectedModules As Boolean
-    Dim i As Integer
-    isSelectedModules = Not isSelectedModules
-    For i = 0 To lstBox_Modules.ListCount - 1
-        lstBox_Modules.Selected(i) = isSelectedModules
-    Next i
-    btnToggleSelectionModules.Caption = IIf(isSelectedModules, "none", "all")
+    ToggleSelection lstBox_Modules, btnToggleSelectionModules
 End Sub
 
-' Toggle Selection for Infills List Box
 Private Sub btnToggleSelectionInfills_Click()
-    Static isSelectedInfills As Boolean
-    Dim i As Integer
-    isSelectedInfills = Not isSelectedInfills
-    For i = 0 To lstBox_Infills.ListCount - 1
-        lstBox_Infills.Selected(i) = isSelectedInfills
-    Next i
-    btnToggleSelectionInfills.Caption = IIf(isSelectedInfills, "none", "all")
+    ToggleSelection lstBox_Infills, btnToggleSelectionInfills
 End Sub
-
 
 Private Sub CmndBtn_OK_Click()
     
@@ -299,4 +288,3 @@ Sub ModifyTxtFile(txtFilename As String)
         .Close
     End With
 End Sub
-
